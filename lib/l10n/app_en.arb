@@ -1,0 +1,209 @@
+{
+  "@@locale": "en",
+  "appTitle": "Wattage Converter",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "calculatorTitle": "Wattage Converter",
+  "@calculatorTitle": {
+    "description": "Title of the calculator screen"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title of the settings screen"
+  },
+  "sourceSection": "Before Conversion",
+  "@sourceSection": {
+    "description": "Section title for source wattage input"
+  },
+  "resultSection": "Conversion Result",
+  "@resultSection": {
+    "description": "Section title for conversion result"
+  },
+  "wattageLabel": "Wattage",
+  "@wattageLabel": {
+    "description": "Label for wattage dropdown"
+  },
+  "targetWattageLabel": "Target Wattage",
+  "@targetWattageLabel": {
+    "description": "Label for target wattage dropdown"
+  },
+  "minutesLabel": "Minutes",
+  "@minutesLabel": {
+    "description": "Label for minutes input"
+  },
+  "secondsLabel": "Seconds",
+  "@secondsLabel": {
+    "description": "Label for seconds input"
+  },
+  "heatInstruction": "heat for this duration",
+  "@heatInstruction": {
+    "description": "Instruction text below the result"
+  },
+  "wattageSettingsSection": "Wattage Settings",
+  "@wattageSettingsSection": {
+    "description": "Section title for wattage settings"
+  },
+  "defaultSettingsSection": "Default Settings",
+  "@defaultSettingsSection": {
+    "description": "Section title for default settings"
+  },
+  "adSettingsSection": "Ad Settings",
+  "@adSettingsSection": {
+    "description": "Section title for ad settings"
+  },
+  "otherSection": "Other",
+  "@otherSection": {
+    "description": "Section title for other settings"
+  },
+  "addWattage": "Add Wattage",
+  "@addWattage": {
+    "description": "Button text to add wattage"
+  },
+  "addWattageDialog": "Add Wattage",
+  "@addWattageDialog": {
+    "description": "Dialog title for adding wattage"
+  },
+  "wattageUnit": "W",
+  "@wattageUnit": {
+    "description": "Wattage unit"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "add": "Add",
+  "@add": {
+    "description": "Add button text"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm dialog title"
+  },
+  "deleteWattageConfirm": "Delete {wattage}W?",
+  "@deleteWattageConfirm": {
+    "description": "Confirmation message for deleting wattage",
+    "placeholders": {
+      "wattage": {
+        "type": "int"
+      }
+    }
+  },
+  "wattageAdded": "{wattage}W has been added",
+  "@wattageAdded": {
+    "description": "Snackbar message when wattage is added",
+    "placeholders": {
+      "wattage": {
+        "type": "int"
+      }
+    }
+  },
+  "wattageDeleted": "{wattage}W has been deleted",
+  "@wattageDeleted": {
+    "description": "Snackbar message when wattage is deleted",
+    "placeholders": {
+      "wattage": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteFailed": "Could not delete",
+  "@deleteFailed": {
+    "description": "Snackbar message when deletion fails"
+  },
+  "minimumWattageError": "At least 2 wattage options are required",
+  "@minimumWattageError": {
+    "description": "Error message when trying to delete with less than 2 options"
+  },
+  "defaultSourceWattage": "Default Source Wattage",
+  "@defaultSourceWattage": {
+    "description": "Label for default source wattage selector"
+  },
+  "defaultTargetWattage": "Default Target Wattage",
+  "@defaultTargetWattage": {
+    "description": "Label for default target wattage selector"
+  },
+  "removeAds": "Remove Ads",
+  "@removeAds": {
+    "description": "Title for remove ads option"
+  },
+  "purchased": "Purchased",
+  "@purchased": {
+    "description": "Text shown when ads are already removed"
+  },
+  "removeAdsPrice": "Remove ads for {price}",
+  "@removeAdsPrice": {
+    "description": "Price description for removing ads",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "purchase": "Purchase",
+  "@purchase": {
+    "description": "Purchase button text"
+  },
+  "restorePurchases": "Restore Purchases",
+  "@restorePurchases": {
+    "description": "Restore purchases button text"
+  },
+  "restoreSuccess": "Purchases restored",
+  "@restoreSuccess": {
+    "description": "Snackbar when restore purchases succeeds"
+  },
+  "restoreFailed": "Failed to restore purchases",
+  "@restoreFailed": {
+    "description": "Snackbar when restore purchases fails"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Privacy policy link text"
+  },
+  "couldNotOpenUrl": "Could not open URL",
+  "@couldNotOpenUrl": {
+    "description": "Error message when URL cannot be opened"
+  },
+  "minuteUnit": "min",
+  "@minuteUnit": {
+    "description": "Abbreviation for minutes"
+  },
+  "secondUnit": "sec",
+  "@secondUnit": {
+    "description": "Abbreviation for seconds"
+  },
+  "timeFormatMinSec": "{minutes}min {seconds}sec",
+  "@timeFormatMinSec": {
+    "description": "Time format with minutes and seconds",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "timeFormatMinOnly": "{minutes}min",
+  "@timeFormatMinOnly": {
+    "description": "Time format with only minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "timeFormatSecOnly": "{seconds}sec",
+  "@timeFormatSecOnly": {
+    "description": "Time format with only seconds",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
+}
