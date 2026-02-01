@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../generated/i18n/app_localizations.dart';
@@ -100,6 +103,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   _SectionHeader(title: l10n.otherSection),
                   const SizedBox(height: 12),
                   _buildPrivacyPolicyButton(l10n),
+                  if (Platform.isAndroid && kDebugMode) ...[
+                    const SizedBox(height: 12),
+                    _buildForceConsumeButton(purchaseState),
+                  ],
                 ],
               ),
             ),
@@ -183,6 +190,52 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildForceConsumeButton(PurchaseState purchaseState) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: ListTile(
+        title: const Text('購入テスト用：広告削除を消費'),
+        subtitle: Text(
+          'Play ストアの購入状態を未購入に戻します（Android のみ）',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+        trailing: purchaseState.isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => _forceConsumeRemoveAds(),
+              ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  Future<void> _forceConsumeRemoveAds() async {
+    final success = await ref
+        .read(purchaseProvider.notifier)
+        .forceConsumeRemoveAds();
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            success
+                ? '広告削除を消費しました。再度購入テストができます。'
+                : '消費に失敗しました。（未購入の場合は対象がありません）',
+          ),
+        ),
+      );
+    }
   }
 
   Widget _buildPrivacyPolicyButton(AppLocalizations l10n) {

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import '../config/purchase_config.dart';
 
 /// アプリ内課金サービス
@@ -102,6 +104,28 @@ class PurchaseService {
     return await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
   }
 
+  /// 広告削除を強制消費（Android のみ）。Google Play 購入テストの再実行用。
+  /// 非消耗型でも consume することで Play ストア側を「未購入」に戻せる。
+  Future<bool> forceConsumeRemoveAds() async {
+    final androidAddition = _inAppPurchase
+        .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    // iOS では null。型上は non-null になることがあるため ignore。
+    // ignore: unnecessary_null_comparison
+    if (androidAddition == null) return false;
+
+    final QueryPurchaseDetailsResponse response = await androidAddition
+        .queryPastPurchases();
+    if (response.error != null) return false;
+
+    final removeAdsList = response.pastPurchases
+        .where((d) => d.productID == removeAdsProductId)
+        .toList();
+    if (removeAdsList.isEmpty) return false;
+
+    final result = await androidAddition.consumePurchase(removeAdsList.first);
+    return result.responseCode == BillingResponse.ok;
+  }
+
   /// 購入を復元。広告削除が実際に復元された場合に true、それ以外は false。
   Future<bool> restorePurchases() async {
     if (!_isAvailable) return false;
@@ -117,8 +141,10 @@ class PurchaseService {
 
     // ストアの復元結果は purchaseStream で非同期に届くため、
     // タイムアウトまで待って「広告削除」が復元されたかで成否を判定する
-    final result = await _restoreCompleter!.future
-        .timeout(_restoreTimeout, onTimeout: () => false);
+    final result = await _restoreCompleter!.future.timeout(
+      _restoreTimeout,
+      onTimeout: () => false,
+    );
     _restoreCompleter = null;
     return result;
   }

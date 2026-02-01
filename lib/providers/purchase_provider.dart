@@ -63,6 +63,23 @@ class PurchaseNotifier extends Notifier<PurchaseState> {
       return false;
     }
   }
+
+  /// 広告削除を強制消費（Android のみ）。購入テスト再実行用。成功で true。
+  Future<bool> forceConsumeRemoveAds() async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final ok = await _purchaseService.forceConsumeRemoveAds();
+      if (ok) {
+        _settingsNotifier.setAdsRemoved(false);
+        state = state.copyWith(isPurchased: false);
+      }
+      state = state.copyWith(isLoading: false);
+      return ok;
+    } catch (e) {
+      state = state.copyWith(error: e.toString(), isLoading: false);
+      return false;
+    }
+  }
 }
 
 /// 課金状態
@@ -95,5 +112,6 @@ class PurchaseState {
 }
 
 /// 課金状態プロバイダー
-final purchaseProvider =
-    NotifierProvider<PurchaseNotifier, PurchaseState>(PurchaseNotifier.new);
+final purchaseProvider = NotifierProvider<PurchaseNotifier, PurchaseState>(
+  PurchaseNotifier.new,
+);
