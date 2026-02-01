@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import '../utils/platform_utils.dart';
 
 /// AdMob広告設定
 ///
@@ -58,13 +58,13 @@ class AdConfig {
 
   /// 現在のプラットフォームのアプリID
   static String get appId {
-    if (_isNotMobile) return '';
+    if (!PlatformUtils.isMobileAdSupported) return '';
     return Platform.isAndroid ? admobAppIdAndroid : admobAppIdIOS;
   }
 
   /// 現在のプラットフォームのバナー広告ユニットID
   static String get bannerAdUnitId {
-    if (_isNotMobile) {
+    if (!PlatformUtils.isMobileAdSupported) {
       throw UnsupportedError('Ads not supported on this platform');
     }
     return Platform.isAndroid ? admobBannerIdAndroid : admobBannerIdIOS;
@@ -74,14 +74,5 @@ class AdConfig {
   static bool get isUsingTestIds {
     return admobAppIdAndroid.contains('3940256099942544') ||
         admobAppIdIOS.contains('3940256099942544');
-  }
-
-  static bool get _isNotMobile {
-    if (kIsWeb) return true;
-    try {
-      return !Platform.isAndroid && !Platform.isIOS;
-    } catch (e) {
-      return true;
-    }
   }
 }

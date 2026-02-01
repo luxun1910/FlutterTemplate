@@ -1,25 +1,15 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/i18n/app_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'config/ad_config.dart';
-import 'dart:io' show Platform;
-
-/// 広告がサポートされているプラットフォームかどうかを判定
-bool get _isAdSupportedPlatform {
-  if (kIsWeb) return false;
-  try {
-    return Platform.isAndroid || Platform.isIOS;
-  } catch (e) {
-    return false;
-  }
-}
+import 'utils/platform_utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // AdMobの初期化（Android/iOSのみ）
-  if (_isAdSupportedPlatform) {
+  if (PlatformUtils.isMobileAdSupported) {
     await MobileAds.instance.initialize();
 
     // テストデバイスの設定（本番IDでもテスト広告を表示）
